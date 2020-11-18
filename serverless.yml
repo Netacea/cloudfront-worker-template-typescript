@@ -1,0 +1,39 @@
+service:
+  name: Netacea-Cloudfront-Lambda-Example
+
+plugins:
+  - serverless-lambda-edge-pre-existing-cloudfront
+  - "serverless-plugin-typescript"
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  memorySize: 128
+  timeout: 5
+  region: us-east-1
+  stackName: Netacea-Cloudfront-Lambda-Template
+  role: ROLE-NAME-HERE # TODO
+
+functions:
+  NetaceaIngest:
+    description: Ingest function for CloudFront
+    handler: ./src/ViewerResponse.handler
+    events:
+      - preExistingCloudFront:
+          distributionId: YOUR-DISTRIBUTION-ID
+          eventType: viewer-response
+          pathPattern: "*"
+          includeBody: false
+
+  NetaceaMitigate:
+    description: Mitigate handler for CloudFront
+    handler: ./src/ViewerRequest.handler
+    events:
+      - preExistingCloudFront:
+          distributionId: YOUR-DISTRIBUTION-ID
+          eventType: viewer-request
+          pathPattern: "*"
+          includeBody: true
