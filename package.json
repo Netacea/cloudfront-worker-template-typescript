@@ -4,7 +4,6 @@
   "description": "Template for CloudFront Lambda@Edge including Netacea worker scripts",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx xo ./**/*.ts"
   },
   "repository": {
@@ -34,7 +33,12 @@
     "space": true,
     "semicolon": false,
     "rules": {
-      "unicorn/filename-case": ["error", { "case": "pascalCase" }]
+      "unicorn/filename-case": [
+        "error",
+        {
+          "case": "pascalCase"
+        }
+      ]
     }
   }
 }

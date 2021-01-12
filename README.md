@@ -28,9 +28,6 @@ and your `ViewerResponse.ts` handler contains:
   worker.addNetaceaCookiesToResponse(event)
   worker.ingest(event)
 ```
-## ✔ Testing
-- `npm run test` - This will run a set of simple method tests against the worker (see `./tests/handler.test.ts`)
-
 ## ☁ Publishing
 `npm run publish` is your friend. This will publish to your cloudfront distribution using serverless
 
