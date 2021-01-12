@@ -30,7 +30,6 @@ and your `ViewerResponse.ts` handler contains:
 ```
 ## ✔ Testing
 - `npm run test` - This will run a set of simple method tests against the worker (see `./tests/handler.test.ts`)
-- `npm run dev` - Uses serverless local to simulate a local cloudfront distribution with Lambda@Edge. It's recommended to run this and ensure functionality is working before deploying.
 
 ## ☁ Publishing
 `npm run publish` is your friend. This will publish to your cloudfront distribution using serverless

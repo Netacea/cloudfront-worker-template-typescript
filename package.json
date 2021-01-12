@@ -32,6 +32,9 @@
   },
   "xo": {
     "space": true,
-    "semicolon": false
+    "semicolon": false,
+    "rules": {
+      "unicorn/filename-case": ["error", { "case": "pascalCase" }]
+    }
   }
 }
