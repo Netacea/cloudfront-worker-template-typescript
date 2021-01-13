@@ -1,4 +1,7 @@
 {
   "apiKey": "",
-  "secretKey": ""
+  "secretKey": "",
+  "kinesisStreamName": "",
+  "KinesisAccessKey": "",
+  "secretsManagerSecretId": ""
 }
