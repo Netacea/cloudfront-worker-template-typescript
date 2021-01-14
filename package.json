@@ -1,0 +1,44 @@
+{
+  "name": "@netacea/cloudfront-worker-template-typescript",
+  "version": "1.0.0",
+  "description": "Template for CloudFront Lambda@Edge including Netacea worker scripts",
+  "main": "./dist/index.js",
+  "scripts": {
+    "lint": "npx xo ./**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Netacea/cloudfront-worker-template-typescript.git"
+  },
+  "keywords": [
+    "netacea",
+    "cloudfront",
+    "lambda@edge",
+    "mitigation"
+  ],
+  "author": "Jack Scotson <jack.scotson@netacea.com> (https://netacea.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Netacea/cloudfront-worker-template-typescript/issues"
+  },
+  "homepage": "https://github.com/Netacea/cloudfront-worker-template-typescript#readme",
+  "devDependencies": {
+    "@types/node": "^14.14.8",
+    "xo": "^0.34.2"
+  },
+  "dependencies": {
+    "@netacea/cloudfront": "^1.0.26"
+  },
+  "xo": {
+    "space": true,
+    "semicolon": false,
+    "rules": {
+      "unicorn/filename-case": [
+        "error",
+        {
+          "case": "pascalCase"
+        }
+      ]
+    }
+  }
+}
