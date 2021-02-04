@@ -28,6 +28,11 @@ and your `ViewerResponse.ts` handler contains:
   worker.addNetaceaCookiesToResponse(event)
   worker.ingest(event)
 ```
+and your `OriginResponse.ts` handler contains:
+```javascript
+  worker.addNetaceaCookiesToResponse(event)
+  worker.ingest(event)
+```
 ## ☁ Publishing
 `npm run publish` is your friend. This will publish to your cloudfront distribution using serverless
 
