@@ -3,6 +3,7 @@ import * as NetaceaConfig from './NetaceaConfig.json'
 const worker = new Cloudfront(NetaceaConfig as CloudfrontConstructorArgs)
 
 export const handler = async (event: any, context: any, callback: any): Promise<void> => {
+  context.callbackWaitsForEmptyEventLoop = false
   // Your code here
 
   // These should be ran at the very end of the OriginResponse, just before calling the callback.
