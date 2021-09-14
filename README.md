@@ -40,7 +40,10 @@ and your `OriginResponse.ts` handler contains:
   worker.ingest(event)
 ```
 ## ☁ Publishing
-`npm run publish` is your friend. This will publish to your cloudfront distribution using serverless
+This repo includes an example SAM (Serverless Application Model) template, to enable building and deploying with the SAM CLI.
+
+`sam build` will build your SAM 
+`sam deploy --guided` will deploy your code to Cloudfront and create a toml file for future deployment
 
 ## ❗ Issues
 If you run into issues with this specific project, please feel free to file an issue [here](https://github.com/Netacea/cloudfront-worker-template-typescript/issues).

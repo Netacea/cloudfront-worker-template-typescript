@@ -1,0 +1,121 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Sample SAM configuration for Lambda@Edge to facilitate deployments and further updates
+
+Globals:
+  Function:
+    Layers:
+      - !Ref RuntimeDependenciesLayer
+
+RuntimeDependenciesLayer:
+  Type: AWS::Serverless::LayerVersion
+  Metadata:
+    BuildMethod: makefile
+  Properties:
+    Description: Runtime dependencies for Lambdas
+    ContentUri: ./
+    CompatibleRuntimes:
+      - nodejs14.x
+    RetentionPolicy: Retain
+
+Parameters:
+  Alias:
+    Type: String
+    Description: Stage that can be added to resource names
+
+
+Resources:
+    CFDistribution:
+        Type: AWS::CloudFront::Distribution
+        Properties:
+          DistributionConfig:
+            Enabled: 'true'
+            Comment: !Sub 'Netacea Example for Lambda@Edge'
+            Origins:
+              -
+                Id: NetaceaOrigin
+                DomainName: www.netacea.com
+                CustomOriginConfig:
+                  HTTPPort: 80
+                  HTTPSPort: 443
+                  OriginProtocolPolicy: match-viewer
+            DefaultCacheBehavior:
+              TargetOriginId: NetaceaOrigin
+              LambdaFunctionAssociations:
+                - 
+                  EventType: origin-response
+                  LambdaFunctionARN: !Ref LambdaEdgeOriginResponse.Version
+                  IncludeBody: true
+                - 
+                  EventType: viewer-request
+                  LambdaFunctionARN: !Ref LambdaEdgeViewerRequest.Version
+                  IncludeBody: true
+                - 
+                  EventType: viewer-response
+                  LambdaFunctionARN: !Ref LambdaEdgeViewerResponse.Version
+                  IncludeBody: true
+              ViewerProtocolPolicy: allow-all
+
+    LambdaEdgeOriginResponse:
+        Type: AWS::Serverless::Function
+        Properties:
+          CodeUri: 
+          Role: !GetAtt LambdaEdgeFunctionRole.Arn
+          Runtime: nodejs14.x
+          Handler: dist/OriginResponse.handler
+          Timeout: 5
+          AutoPublishAlias: live 
+        Metadata:
+          BuildMethod: makefile
+
+    LambdaEdgeViewerRequest:
+        Type: AWS::Serverless::Function
+        Properties:
+          CodeUri: 
+          Role: !GetAtt LambdaEdgeFunctionRole.Arn
+          Runtime: nodejs14.x
+          Handler: dist/ViewerRequest.handler
+          Timeout: 5
+          AutoPublishAlias: live 
+        Metadata:
+          BuildMethod: makefile
+
+    LambdaEdgeViewerResponse:
+        Type: AWS::Serverless::Function
+        Properties:
+          CodeUri: 
+          Role: !GetAtt LambdaEdgeFunctionRole.Arn
+          Runtime: nodejs14.x
+          Handler: dist/ViewerResponse.handler
+          Timeout: 5
+          AutoPublishAlias: live 
+        Metadata:
+          BuildMethod: makefile
+
+    LambdaEdgeFunctionRole:
+      Type: "AWS::IAM::Role"
+      Properties:
+          Path: "/"
+          ManagedPolicyArns:
+              - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+          AssumeRolePolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Sid: "AllowLambdaServiceToAssumeRole"
+                Effect: "Allow"
+                Action: 
+                  - "sts:AssumeRole"
+                Principal:
+                  Service: 
+                    - "lambda.amazonaws.com"
+                    - "edgelambda.amazonaws.com"
+
+Outputs:
+    LambdaEdgeFunctionSampleVersion: 
+      Description: Lambda@Edge Sample Function ARN with Version
+      Value: !Ref LambdaEdgeFunctionSample.Version
+
+    CFDistribution: 
+      Description: Cloudfront Distribution Domain Name
+      Value: !GetAtt CFDistribution.DomainName
