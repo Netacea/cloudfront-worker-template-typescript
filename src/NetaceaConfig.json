@@ -5,5 +5,14 @@
     "kinesisStreamName": "",
     "kinesisAccessKey": "",
     "kinesisSecretKey": ""
-  }
+  },
+  "cookieEncryptionKey": "",
+  "netaceaCookieName": "X-Custom-Cookie",
+  "netaceaCaptchaCookieName": "X-Captcha-Cookie",
+  "netaceaCaptchaPath": "/captcha",
+  "captchaHeader": {
+    "name": "X-Captcha-Serve",
+    "value": "true"
+  },
+  "dynamicCaptchaContentType": true
 }
