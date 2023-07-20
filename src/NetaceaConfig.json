@@ -7,14 +7,5 @@
     "kinesisSecretKey": ""
   },
   "cookieEncryptionKey": "",
-  "mitigationType": "",
-  "ingestType": "",
-  "netaceaCookieName": "X-Custom-Cookie",
-  "netaceaCaptchaCookieName": "X-Captcha-Cookie",
-  "netaceaCaptchaPath": "/captcha",
-  "captchaHeader": {
-    "name": "X-Captcha-Serve",
-    "value": "true"
-  },
-  "dynamicCaptchaContentType": true
+  "mitigationType": "MITIGATE"
 }
