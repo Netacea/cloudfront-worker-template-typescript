@@ -7,6 +7,8 @@
     "kinesisSecretKey": ""
   },
   "cookieEncryptionKey": "",
+  "mitigationType": "",
+  "ingestType": "",
   "netaceaCookieName": "X-Custom-Cookie",
   "netaceaCaptchaCookieName": "X-Captcha-Cookie",
   "netaceaCaptchaPath": "/captcha",
