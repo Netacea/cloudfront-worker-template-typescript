@@ -5,5 +5,7 @@
     "kinesisStreamName": "",
     "kinesisAccessKey": "",
     "kinesisSecretKey": ""
-  }
+  },
+  "cookieEncryptionKey": "",
+  "mitigationType": "MITIGATE"
 }

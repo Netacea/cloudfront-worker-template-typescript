@@ -1,16 +1,20 @@
-import Cloudfront, {CloudfrontConstructorArgs} from '@netacea/cloudfront'
+import type {Context, Callback} from 'aws-lambda'
+import Cloudfront from '@netacea/cloudfront'
+import type {types as NetaceaTypes} from '@netacea/cloudfront'
 import * as NetaceaConfig from './NetaceaConfig.json'
-const worker = new Cloudfront(NetaceaConfig as CloudfrontConstructorArgs)
 
-export const handler = async (event: any, context: any, callback: any): Promise<any> => {
+const worker = new Cloudfront(NetaceaConfig as NetaceaTypes.CloudfrontConstructorArgs)
+
+export const handler = async (event: NetaceaTypes.CloudfrontEvent, context: Context, callback: Callback): Promise<void> => {
   context.callbackWaitsForEmptyEventLoop = false
   // Netacea's worker needs to be run first
   const netaceaResponse = await worker.run(event)
   const {request, response} = netaceaResponse.Records[0].cf
   if (response !== undefined) {
-    return callback(null, response)
+    callback(null, response)
+    return
   }
 
   // Your code here
-  return callback(null, request)
+  callback(null, request)
 }
