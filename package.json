@@ -29,7 +29,7 @@
     "xo": "^0.55.0"
   },
   "dependencies": {
-    "@netacea/cloudfront": "^5.1.73"
+    "@netacea/cloudfront": "^5.1.80"
   },
   "xo": {
     "space": true,
