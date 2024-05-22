@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # release zip
-netacea-cloudfront.zip
+netacea-cloudfront*.zip

@@ -1,14 +1,23 @@
 #!/bin/bash
 set -e -o pipefail
 
-rm -rf netacea-cloudfront.zip ./dist ./node_modules
+# Clean-up old assets
+rm -rf netacea-cloudfront*.zip ./dist ./node_modules
 
-npm i
+# Install all so we can compile typescript
+npm ci
 npx tsc
-cp ./package.json ./dist/package.json
+cp ./package.json ./package-lock.json ./dist/
 
+# Get the version of @netacea/cloudfront now installed and derive the bundle name
+version=$(npm list --json | jq -r '.dependencies["@netacea/cloudfront"].version')
+bundle_name="netacea-cloudfront-$version.zip"
+echo -e "\nCreating release assets for @netacea/cloudfront@$version with name $bundle_name"
+
+# Install just production dependencies in ./dist
 cd dist
-npm i --production
-rm *.js.map
+npm ci --production
+rm *.js.map package-lock.json
 
-zip -r ../netacea-cloudfront ./*
+# Create the zip file
+zip -r ../$bundle_name ./*
