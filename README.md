@@ -7,6 +7,12 @@ A simple Cloudfront worker with Netacea built in.
 
 ## 💡 Getting Started
 
+Install required dependencies:
+
+```bash
+npm ci
+```
+
 Ensure the `@netacea/cloudfront` package is up to date by running:
 
 ```bash
@@ -18,7 +24,7 @@ npm i @netacea/cloudfront@latest
 
 ## ‼ Important
 
-It's critical that you put have the following snippet inside each of your workers, after `@netacea/cloudfront@v1.7.0`
+It's critical that you put have the following snippet inside each of your workers:
 
 ```javascript
   context.callbackWaitsForEmptyEventLoop = false
