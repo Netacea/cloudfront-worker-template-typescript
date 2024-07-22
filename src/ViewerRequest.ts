@@ -1,7 +1,6 @@
-import * as config from './NetaceaConfig.json'
 import {
   Cloudfront as NetaceaCloudfront,
-  type CloudfrontConstructorArgs
+  type CloudfrontConstructorArgs,
 } from '@netacea/cloudfront'
 import {
   type CloudFrontRequest,
@@ -11,6 +10,7 @@ import {
   type Context,
   type Handler,
 } from 'aws-lambda'
+import * as config from './NetaceaConfig.json'
 
 const worker = new NetaceaCloudfront(config as CloudfrontConstructorArgs)
 
