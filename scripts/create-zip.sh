@@ -2,10 +2,8 @@
 set -e -o pipefail
 
 # Clean-up old assets
-rm -rf netacea-cloudfront*.zip ./dist ./node_modules
+rm -rf netacea-cloudfront*.zip ./dist
 
-# Install all so we can compile typescript
-npm ci
 npx tsc
 cp ./package.json ./package-lock.json ./dist/
 
