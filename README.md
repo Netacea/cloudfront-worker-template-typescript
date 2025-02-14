@@ -13,12 +13,6 @@ Install required dependencies:
 npm ci
 ```
 
-Ensure the `@netacea/cloudfront` package is up to date by running:
-
-```bash
-npm i @netacea/cloudfront@latest
-```
-
 - Insert your Netacea API and Secret key into `./src/NetaceaConfig.json`.
 - Ensure you are logged into AWS CLI and that you have permission to deploy lambdas, create cloud watch log streams and modify existing cloudfront distributions
 
