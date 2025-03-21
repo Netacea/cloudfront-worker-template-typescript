@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "lint": "npx xo ./src/**/*.ts",
-    "upgrade": "npm i @netacea/cloudfront@latest && bash ./scripts/create-zip.sh"
+    "upgrade": "npm i --save @netacea/cloudfront@latest && bash ./scripts/create-zip.sh"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
     "xo": "^0.55.0"
   },
   "dependencies": {
-    "@netacea/cloudfront": "^6.0.42"
+    "@netacea/cloudfront": "^6.0.51"
   },
   "xo": {
     "space": true,
