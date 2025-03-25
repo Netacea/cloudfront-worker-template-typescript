@@ -31,10 +31,11 @@ Code extensions should be made in `./src/ViewerRequest.ts` and `./src/ViewerResp
 Please ensure that as a minimum your `ViewerRequest.ts` handler contains:
 
 ```javascript
+  context.callbackWaitsForEmptyEventLoop = false
   const netaceaResponse = await worker.run(event)
-  const { request, response } = netaceaResponse.Records[0].cf
-  if (response !== undefined) {
-    return callback(null, response)
+  if (netaceaResponse.respondWith !== undefined) {
+    callback(null, netaceaResponse.respondWith)
+    return
   }
 ```
 
@@ -42,14 +43,14 @@ and your `ViewerResponse.ts` handler contains:
 
 ```javascript
   worker.addNetaceaCookiesToResponse(event)
-  worker.ingest(event)
+  void worker.ingest(event)
 ```
 
 and your `OriginResponse.ts` handler contains:
 
 ```javascript
   worker.addNetaceaCookiesToResponse(event)
-  worker.ingest(event)
+  void worker.ingest(event)
 ```
 
 ## ❗ Issues
