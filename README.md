@@ -16,13 +16,13 @@ npm ci
 - Insert your Netacea API and Secret key into `./src/NetaceaConfig.json`.
 - Ensure you are logged into AWS CLI and that you have permission to deploy lambdas, create cloud watch log streams and modify existing cloudfront distributions
 
-## ‼ Important
+## ⬆️ Upgrading
 
-It's critical that you put have the following snippet inside each of your workers:
+If you're upgrading from a previous version of the Netacea CloudFront Worker Template,
+most of the time you should be able to upgrade by running `npm install --save @netacea/cloudfront@latest`.
 
-```javascript
-  context.callbackWaitsForEmptyEventLoop = false
-```
+However, if you are upgrading from v5 to v6, then please see the
+[v5 to v6 upgrade guide.](./docs/upgrading_v5_to_v6.md)
 
 ## 💻 Developing
 
@@ -52,6 +52,16 @@ and your `OriginResponse.ts` handler contains:
   worker.addNetaceaCookiesToResponse(event)
   void worker.ingest(event)
 ```
+
+### ‼ Important
+
+It's critical that you put have the following snippet inside each of your workers:
+
+```javascript
+  context.callbackWaitsForEmptyEventLoop = false
+```
+
+If this snippet is not used, then requests to your website could incur additional latency.
 
 ## ❗ Issues
 
