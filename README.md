@@ -55,13 +55,13 @@ and your `OriginResponse.ts` handler contains:
 
 ### ‼ Important
 
-It's critical that you put have the following snippet inside each of your workers:
+It's critical you include the following snippet inside each of your workers:
 
 ```javascript
   context.callbackWaitsForEmptyEventLoop = false
 ```
 
-If this snippet is not used, then requests to your website could incur additional latency.
+If this snippet is not used then requests to your website could incur additional latency.
 
 ## ❗ Issues
 
