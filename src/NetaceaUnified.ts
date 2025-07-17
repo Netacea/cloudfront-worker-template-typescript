@@ -11,14 +11,12 @@ import {
   type CloudFrontRequestEvent,
   type CloudFrontResultResponse,
   type Context,
-  type Handler
+  type Handler,
 } from 'aws-lambda'
-
 import {
   Cloudfront as NetaceaCloudfront,
-  type CloudfrontConstructorArgs
+  type CloudfrontConstructorArgs,
 } from '@netacea/cloudfront'
-
 import * as NetaceaConfig from './NetaceaConfig.json'
 
 type EventType = 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response'
@@ -28,29 +26,29 @@ const worker = new NetaceaCloudfront(NetaceaConfig as CloudfrontConstructorArgs)
 export const handler: Handler = async (
   event: CloudFrontRequestEvent,
   context: Context,
-  callback: Callback<CloudFrontRequest | CloudFrontResultResponse>
+  callback: Callback<CloudFrontRequest | CloudFrontResultResponse>,
 ): Promise<void> => {
   context.callbackWaitsForEmptyEventLoop = false
 
   const eventType = event.Records[0]?.cf.config.eventType?.toLowerCase() as EventType
 
   if (eventType === 'viewer-request' || eventType === 'origin-request') {
-    return await viewerRequestHandler(event, context, callback)
+    return viewerRequestHandler(event, context, callback)
   }
 
   if (eventType === 'origin-response') {
-    return await originResponseHandler(event, context, callback)
+    return originResponseHandler(event, context, callback)
   }
 
   if (eventType === 'viewer-response') {
-    return await viewerResponseHandler(event, context, callback)
+    return viewerResponseHandler(event, context, callback)
   }
 }
 
 export const viewerRequestHandler: Handler = async (
   event: CloudFrontRequestEvent,
   context: Context,
-  callback: Callback<CloudFrontRequest | CloudFrontResultResponse>
+  callback: Callback<CloudFrontRequest | CloudFrontResultResponse>,
 ): Promise<void> => {
   const netaceaResponse = await worker.run(event)
 
@@ -65,7 +63,7 @@ export const viewerRequestHandler: Handler = async (
 export const originResponseHandler: Handler = async (
   event: CloudFrontResponseEvent,
   context: Context,
-  callback: Callback<CloudFrontResponse>
+  callback: Callback<CloudFrontResponse>,
 ): Promise<void> => {
   if (Number(event.Records[0].cf.response.status) >= 400) {
     worker.addNetaceaCookiesToResponse(event)
@@ -78,7 +76,7 @@ export const originResponseHandler: Handler = async (
 export const viewerResponseHandler: Handler = async (
   event: CloudFrontResponseEvent,
   context: Context,
-  callback: Callback<CloudFrontResponse>
+  callback: Callback<CloudFrontResponse>,
 ): Promise<void> => {
   if (Number(event.Records[0].cf.response.status) < 400) {
     worker.addNetaceaCookiesToResponse(event)
