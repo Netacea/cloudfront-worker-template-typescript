@@ -20,7 +20,9 @@ export const handler: Handler = async (
   callback: Callback<CloudFrontRequest | CloudFrontResultResponse>,
 ): Promise<void> => {
   context.callbackWaitsForEmptyEventLoop = false
-  const netaceaResponse = await worker.run(event)
+
+  const netaceaResponse = await worker.handleRequest(event)
+
   if (netaceaResponse.respondWith !== undefined) {
     callback(null, netaceaResponse.respondWith)
     return

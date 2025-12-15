@@ -7,6 +7,8 @@ A simple Cloudfront worker with Netacea built in.
 
 ## 💡 Getting Started
 
+Please use NodeJs 22 for both development and production deployments.
+
 Install required dependencies:
 
 ```bash
@@ -21,8 +23,12 @@ npm ci
 If you're upgrading from a previous version of the Netacea CloudFront Worker Template,
 most of the time you should be able to upgrade by running `npm install --save @netacea/cloudfront@latest`.
 
-However, if you are upgrading from v5 to v6, then please see the
+If you are upgrading from v5 to v6, then please see the
 [v5 to v6 upgrade guide.](./docs/upgrading_v5_to_v6.md)
+
+For an upgrade from v6 to v7, see the
+[v6 to v7 upgrade guide.](./docs/upgrading_v6_to_v7.md)
+
 
 ## 💻 Developing
 

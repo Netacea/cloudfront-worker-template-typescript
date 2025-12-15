@@ -50,7 +50,7 @@ export const viewerRequestHandler: Handler = async (
   context: Context,
   callback: Callback<CloudFrontRequest | CloudFrontResultResponse>,
 ): Promise<void> => {
-  const netaceaResponse = await worker.run(event)
+  const netaceaResponse = await worker.handleRequest(event)
 
   if (netaceaResponse.respondWith !== undefined) {
     callback(null, netaceaResponse.respondWith)
@@ -66,8 +66,7 @@ export const originResponseHandler: Handler = async (
   callback: Callback<CloudFrontResponse>,
 ): Promise<void> => {
   if (Number(event.Records[0].cf.response.status) >= 400) {
-    worker.addNetaceaCookiesToResponse(event)
-    void worker.ingest(event)
+    await worker.handleResponse(event)
   }
 
   callback(null, event.Records[0].cf.response)
@@ -79,8 +78,7 @@ export const viewerResponseHandler: Handler = async (
   callback: Callback<CloudFrontResponse>,
 ): Promise<void> => {
   if (Number(event.Records[0].cf.response.status) < 400) {
-    worker.addNetaceaCookiesToResponse(event)
-    void worker.ingest(event)
+    await worker.handleResponse(event)
   }
 
   callback(null, event.Records[0].cf.response)
