@@ -19,11 +19,9 @@ export const handler: Handler = async (
   callback: Callback<CloudFrontResponse>,
 ): Promise<void> => {
   context.callbackWaitsForEmptyEventLoop = false
-  // Your code here
-  // These should be ran at the very end of the ViewerResponse, just before calling the callback.
+
   if (Number(event.Records[0].cf.response.status) >= 400) {
-    worker.addNetaceaCookiesToResponse(event)
-    void worker.ingest(event)
+    await worker.handleResponse(event)
   }
 
   callback(null, event.Records[0].cf.response)
