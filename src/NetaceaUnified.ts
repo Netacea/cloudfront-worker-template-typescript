@@ -15,13 +15,10 @@ import {
 } from 'aws-lambda'
 import {
   Cloudfront as NetaceaCloudfront,
-  type CloudfrontConstructorArgs,
 } from '@netacea/cloudfront'
-import * as NetaceaConfig from './NetaceaConfig.json'
+import { getNetaceaConfig, getEventType } from './Utils.js'
 
-type EventType = 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response'
-
-const worker = new NetaceaCloudfront(NetaceaConfig as CloudfrontConstructorArgs)
+const worker = new NetaceaCloudfront(getNetaceaConfig())
 
 export const handler: Handler = async (
   event: CloudFrontRequestEvent,
@@ -30,7 +27,7 @@ export const handler: Handler = async (
 ): Promise<void> => {
   context.callbackWaitsForEmptyEventLoop = false
 
-  const eventType = event.Records[0]?.cf.config.eventType?.toLowerCase() as EventType
+  const eventType = getEventType(event)
 
   if (eventType === 'viewer-request' || eventType === 'origin-request') {
     return viewerRequestHandler(event, context, callback)
