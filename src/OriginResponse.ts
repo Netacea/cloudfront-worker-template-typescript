@@ -1,6 +1,5 @@
 import {
   Cloudfront as NetaceaCloudfront,
-  type CloudfrontConstructorArgs,
 } from '@netacea/cloudfront'
 import {
   type Callback,
@@ -9,9 +8,9 @@ import {
   type Context,
   type Handler,
 } from 'aws-lambda'
-import * as NetaceaConfig from './NetaceaConfig.json'
+import {getNetaceaConfig} from './Utils.js'
 
-const worker = new NetaceaCloudfront(NetaceaConfig as CloudfrontConstructorArgs)
+const worker = new NetaceaCloudfront(getNetaceaConfig())
 
 export const handler: Handler = async (
   event: CloudFrontResponseEvent,
