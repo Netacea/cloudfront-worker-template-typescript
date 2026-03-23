@@ -17,7 +17,7 @@ export function getEventType(event: CloudFrontEvent): EventType {
     'origin-request',
     'origin-response',
     'viewer-request',
-    'viewer-response'
+    'viewer-response',
   ]
 
   if (eventTypeString && validEventTypes.includes(eventTypeString)) {

@@ -16,7 +16,7 @@ import {
 import {
   Cloudfront as NetaceaCloudfront,
 } from '@netacea/cloudfront'
-import { getNetaceaConfig, getEventType } from './Utils.js'
+import {getNetaceaConfig, getEventType} from './Utils.js'
 
 const worker = new NetaceaCloudfront(getNetaceaConfig())
 

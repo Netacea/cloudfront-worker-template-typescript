@@ -8,7 +8,7 @@ import {
   type Context,
   type Handler,
 } from 'aws-lambda'
-import { getNetaceaConfig } from './Utils.js'
+import {getNetaceaConfig} from './Utils.js'
 
 const worker = new NetaceaCloudfront(getNetaceaConfig())
 
